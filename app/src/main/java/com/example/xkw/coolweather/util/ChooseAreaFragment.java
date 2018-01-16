@@ -2,6 +2,7 @@ package com.example.xkw.coolweather.util;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.xkw.coolweather.R;
+import com.example.xkw.coolweather.WeatherActivity;
 import com.example.xkw.coolweather.db.City;
 import com.example.xkw.coolweather.db.County;
 import com.example.xkw.coolweather.db.Province;
@@ -88,6 +90,14 @@ public class ChooseAreaFragment extends Fragment
                     selectedCity=cityList.get(position);
                     queryCounties();
                 }
+                else if (currentLevel==LEVEL_COUNTY)
+                {
+                    String weatherId=countyList.get(position).getWeatherId();
+                    Intent intent=new Intent(getActivity(), WeatherActivity.class);
+                    intent.putExtra("weather_id",weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
             }
         });
         backbutton.setOnClickListener(new View.OnClickListener()
@@ -103,6 +113,7 @@ public class ChooseAreaFragment extends Fragment
                 {
                     querProvinces();
                 }
+
             }
         });
        querProvinces();
